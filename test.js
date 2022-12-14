@@ -1,9 +1,9 @@
-let a = ['Ace', 10, true];
+let a = ['Ace', 'sdsdsdsd', 'pwoiuyhjkujhk'];
 let b = [0, 1, 2, 3, 4, 5];
-let c = [-1, 2, -5, -4, 0] ;
+let c = [-1, 2, -5, -4, 0];
 
-function getArrayOfPositives(arr) {
-  return arr.filter((el) => el >= 1);
+function getSecondItems(arr) {
+  // return arr.map((item, index) => new Array(index + 1).fill(item));
+  return arr.map((item, index) => new Array(index + 1).fill(item));
 }
-
-console.log(getArrayOfPositives(c));
+console.log(getSecondItems(b));
