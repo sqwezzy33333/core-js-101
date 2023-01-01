@@ -360,12 +360,12 @@ function getItemsSum(arr) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  return arr.reduce((col, el) => (el ? col : col + 1), 0);
 }
 
 /**
- * Returns a number of all occurrences of the specified item in an array
+ * Returns a number of all occurences of the specified item in an array
  *
  * @param {array} arr
  * @param {any} item
@@ -378,12 +378,12 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurences(arr, item) {
+  return arr.filter((i) => i === item).length;
 }
 
 /**
- * Concatenates all elements from specified array into single string with ',' delimiter
+ * Concatenates all elements from specified array into single string with ',' delimeter
  *
  * @param {array} arr
  * @return {string}
@@ -393,8 +393,8 @@ function findAllOccurrences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.join(',');
 }
 
 /**
@@ -423,12 +423,12 @@ function toStringList(/* arr */) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => a.country.localeCompare(b.country) || a.city.localeCompare(b.city));
 }
 
 /**
- * Creates an identity matrix of the specified size
+ * Creates an indentity matrix of the specified size
  *
  * @param {number} n
  * @return {array}
@@ -445,8 +445,10 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return Array(n)
+    .fill(0)
+    .map((el, index, arr) => Array(arr.length).fill(0).map((elem, ind) => (ind === index ? 1 : 0)));
 }
 
 /**
@@ -462,8 +464,10 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return Array(end - start + 1)
+    .fill(0)
+    .map((el, index) => start + index);
 }
 
 /**
@@ -477,8 +481,8 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  return Array.from(new Set(arr));
 }
 
 /**
@@ -511,8 +515,19 @@ function distinct(/* arr */) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const result = new Map();
+  const value = array.map(valueSelector);
+  const key = array.map(keySelector);
+  key.map((item, index) => {
+    if (result.has(item)) {
+      result.set(item, result.get(item).concat([value[index]]));
+    } else {
+      result.set(item, [value[index]]);
+    }
+    return 0;
+  });
+  return result;
 }
 
 /**
@@ -526,14 +541,14 @@ function group(/* array, keySelector, valueSelector */) {
  *
  * @example
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
- *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
+ *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(/* arr, childrenSelector */) {
   throw new Error('Not implemented');
 }
 
 /**
- * Returns an element from the multidimensional array by the specified indexes.
+ * Returns an element from the multidimentional array by the specified indexes.
  *
  * @param {array} arr
  * @param {array} indexes
@@ -593,7 +608,7 @@ module.exports = {
   sortDigitNamesByNumericOrder,
   getItemsSum,
   getFalsyValuesCount,
-  findAllOccurrences,
+  findAllOccurences,
   sortCitiesArray,
   getIdentityMatrix,
   getIntervalArray,
